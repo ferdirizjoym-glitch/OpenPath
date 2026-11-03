@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; font: 16px/1.5 system-ui, sans-serif; color: #172033; background: #f1f5f9; }
+    main { width: min(100%, 390px); padding: 36px; border: 1px solid #e2e8f0; border-radius: 16px; background: white; box-shadow: 0 16px 40px #0f172a12; }
+    h1 { margin: 0 0 6px; font-size: 1.7rem; }
+    p { margin: 0 0 26px; color: #64748b; }
+    label { display: block; margin: 16px 0 6px; font-weight: 600; }
+    input { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+    input:focus { outline: 3px solid #2563eb33; border-color: #2563eb; }
+    button { width: 100%; margin-top: 22px; padding: 12px; border: 0; border-radius: 8px; color: white; background: #2563eb; font: inherit; font-weight: 700; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    #message { min-height: 1.5em; margin: 14px 0 0; color: #475569; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Welcome back</h1>
+    <p>Sign in to continue to your account.</p>
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+      <button type="submit">Sign in</button>
+      <div id="message" role="status" aria-live="polite"></div>
+    </form>
+  </main>
+  <script>
+    document.querySelector('#login-form').addEventListener('submit', event => {
+      event.preventDefault();
+      document.querySelector('#message').textContent = 'Login form submitted. Connect this form to your authentication service.';
+    });
+  </script>
+</body>
+</html>
