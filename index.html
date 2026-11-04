@@ -1,41 +1,308 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign in</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; font: 16px/1.5 system-ui, sans-serif; color: #172033; background: #f1f5f9; }
-    main { width: min(100%, 390px); padding: 36px; border: 1px solid #e2e8f0; border-radius: 16px; background: white; box-shadow: 0 16px 40px #0f172a12; }
-    h1 { margin: 0 0 6px; font-size: 1.7rem; }
-    p { margin: 0 0 26px; color: #64748b; }
-    label { display: block; margin: 16px 0 6px; font-weight: 600; }
-    input { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
-    input:focus { outline: 3px solid #2563eb33; border-color: #2563eb; }
-    button { width: 100%; margin-top: 22px; padding: 12px; border: 0; border-radius: 8px; color: white; background: #2563eb; font: inherit; font-weight: 700; cursor: pointer; }
-    button:hover { background: #1d4ed8; }
-    #message { min-height: 1.5em; margin: 14px 0 0; color: #475569; font-size: .9rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Designed on a 1920x1080 canvas, scaled to fit any window (1:1 ratio kept) */
+html,body{margin:0;height:100%;background:#fff;overflow:hidden}
+*{box-sizing:border-box}
+.stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:#fff;overflow:visible;font-family:'Saira Condensed','Bahnschrift','Arial Narrow',sans-serif;color:#fff}
+#dots{position:absolute;left:0;top:0;pointer-events:none}
+
+/* card */
+.card{position:absolute;left:1219px;top:170px;width:526px;height:735px;background:#1b1b1b;border-radius:22px;
+ box-shadow:5px 6px 0 #ff3131,7px 9px 0 #1c1c1c,10px 14px 24px rgba(0,0,0,.25)}
+.card.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.panel{position:absolute;left:11px;top:7px;width:509px;height:720px;background:#222;border:2px solid #a6d85a;border-radius:16px}
+.card>*{position:absolute}
+.dot{width:16px;height:16px;border-radius:50%;background:#ff3131}
+
+/* smiley */
+.face{left:208px;top:51px;width:118px;height:118px}
+.face path{transition:d .25s}
+
+/* titles */
+.welcome{left:0;width:526px;top:168px;height:60px;display:flex;justify-content:center;align-items:center;gap:16px;font-size:50px;font-weight:700;line-height:60px}
+.welcome i{width:23px;height:2px;background:#ff3131}
+.sub{left:0;width:526px;top:222px;text-align:center;font-size:31px;font-weight:700;color:#ff3131;line-height:36px}
+
+/* fields */
+label{left:30px;font-size:18px;font-weight:600;line-height:20px;height:20px}
+.field{left:31px;width:465px;height:66px}
+.field input{width:100%;height:100%;background:#222;border:2px solid #ff3131;border-radius:22px;padding:0 20px;
+ font:400 24px 'Saira Condensed','Bahnschrift',sans-serif;color:#fff;outline:none;letter-spacing:.5px;
+ box-shadow:0 4px 12px rgba(255,255,255,.1);transition:box-shadow .15s}
+.field input::placeholder{color:#9a9a9a;opacity:1}
+.field input:focus{box-shadow:0 0 0 3px rgba(255,49,49,.3),0 4px 12px rgba(255,255,255,.1)}
+.field input.err{box-shadow:0 0 0 3px rgba(255,49,49,.6)}
+.field input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px #222 inset;-webkit-text-fill-color:#fff}
+#p,#c{padding-right:80px}
+#p::placeholder,#c::placeholder{font-size:18px;letter-spacing:1px}
+.field .sep{position:absolute;left:399px;top:8px;width:1px;height:49px;background:#8a8a8a}
+.eye{position:absolute;left:402px;top:3px;width:60px;height:60px;background:none;border:0;cursor:pointer;color:#cfcfcf;padding:0;border-radius:50%}
+.eye:hover{color:#fff}
+.eye:focus-visible{outline:2px solid #fff}
+.eye svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+#lu{top:310px}#u-f{top:337px}
+#lp{top:412px}#p-f{top:439px}
+#lc{top:514px;display:none}#c-f{top:541px;display:none}
+.reg #lc,.reg #c-f{display:block}
+
+/* or + button */
+.or{left:220px;top:580px;width:74px;height:22px;display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:700;line-height:22px;transition:top .25s}
+.or i{width:22px;height:1px;background:#cfcfcf}
+.alt{left:97px;top:612px;width:330px;height:42px;background:#ff3131;border:2px solid #ff3131;border-radius:21px;
+ box-shadow:inset 0 0 0 3px #161616;color:#fff;font:600 26px/36px 'Saira Condensed','Bahnschrift',sans-serif;cursor:pointer;padding:0;
+ transition:top .25s,filter .15s,transform .1s}
+.alt:hover{filter:brightness(1.12)}
+.alt:active{transform:scale(.98)}
+.alt:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.msg{left:0;top:668px;
+width:526px;text-align:center;font-size:18px;font-weight:600;line-height:22px;color:#ff5a5a;transition:top .25s}
+.msg.ok{color:#7ddc6b}
+.go{top:521px}.reg .or{top:681px}.reg .alt{top:712px}.reg .msg{top:766px}.reg .go{top:623px}.card.reg{height:805px}.reg .panel{height:790px}.reg .dot.br{top:765px}
+.dot.br{left:489px;top:695px}.dot.tl{left:22px;top:17px}
+.face{cursor:pointer}
+.card{scale:var(--kx,1) var(--ky,1);transform-origin:0 0}
+.dot{cursor:nwse-resize;touch-action:none}
+.dot::after{content:'';position:absolute;inset:-12px}
+html,body,.stage,.card,.panel{transition:background .3s}
+.dk,.dk body,.dk .stage{background:#141414}
+.dk .stage{color:#222}
+.dk .card{background:#cfcfcf;box-shadow:5px 6px 0 #ff3131,7px 9px 0 #cfcfcf,10px 14px 24px rgba(0,0,0,.5)}
+.dk .panel{background:#f4f4f4}
+.dk .field input{background:#f4f4f4;color:#222;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.dk .field input::placeholder{color:#777}
+.dk .field input:focus{box-shadow:0 0 0 3px rgba(255,49,49,.3),0 4px 12px rgba(0,0,0,.15)}
+.dk .field input.err{box-shadow:0 0 0 3px rgba(255,49,49,.6)}
+.dk .field input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px #f4f4f4 inset;-webkit-text-fill-color:#222}
+.dk .field .sep{background:#888}
+.dk .eye{color:#444}.dk .eye:hover{color:#000}
+.dk .or i{background:#555}
+.dk .alt{box-shadow:inset 0 0 0 3px #f4f4f4;color:#fff}
+.dk .alt:focus-visible,.dk .eye:focus-visible{outline-color:#222}
+</style>
 </head>
 <body>
-  <main>
-    <h1>Welcome back</h1>
-    <p>Sign in to continue to your account.</p>
-    <form id="login-form">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" required>
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-      <button type="submit">Sign in</button>
-      <div id="message" role="status" aria-live="polite"></div>
-    </form>
-  </main>
-  <script>
-    document.querySelector('#login-form').addEventListener('submit', event => {
-      event.preventDefault();
-      document.querySelector('#message').textContent = 'Login form submitted. Connect this form to your authentication service.';
-    });
-  </script>
+<div class="stage" id="stage">
+  <svg id="dots" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+
+  <form class="card" id="card" onsubmit="return false" autocomplete="on">
+    <div class="panel"></div>
+    <div class="dot tl"></div><div class="dot br"></div>
+
+    <svg class="face" viewBox="0 0 118 118">
+      <circle cx="59" cy="59" r="57.5" fill="#d6d6d6" stroke="#ff3131" stroke-width="3"/>
+      <circle cx="38" cy="43" r="11" fill="#222"/><circle cx="79" cy="43" r="11" fill="#222"/>
+      <path id="mouth" d="M25 79Q60 112 95 80" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+
+    <div class="welcome"><i></i>Welcome<i></i></div>
+    <div class="sub" id="title">Login</div>
+
+    <label id="lu" for="u">Username</label>
+    <div class="field" id="u-f"><input id="u" type="text" placeholder="Enter Here..." autocomplete="username" spellcheck="false"></div>
+
+    <label id="lp" for="p">Password</label>
+    <div class="field" id="p-f">
+      <input id="p" type="password" placeholder="************************" autocomplete="current-password">
+      <span class="sep"></span>
+      <button type="button" class="eye" id="eye" aria-label="Show password">
+        <svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3.2"/><path id="slash" d="M3.5 20.5 20.5 3.5"/></svg>
+      </button>
+    </div>
+
+    <label id="lc" for="c">Confirm Password</label>
+    <div class="field" id="c-f"><input id="c" type="password" placeholder="************************" autocomplete="new-password"></div>
+
+    <div class="or"><i></i>or<i></i></div>
+    <button type="button" class="alt go" id="go">Login</button>
+    <button type="button" class="alt" id="alt">Create new account</button>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+  </form>
+</div>
+
+<script>
+const REDIRECT = ""; // e.g. "dashboard.html" - page to open after a successful login ("" = stay here)
+
+/* ---- scale 1920x1080 stage to window ---- */
+const stage = document.getElementById('stage');
+function fit(){
+  const s = Math.min(innerWidth/1920, innerHeight/1080);
+  stage.style.transform = `translate(${(innerWidth-1920*s)/2}px,${(innerHeight-1080*s)/2}px) scale(${s})`;
+}
+addEventListener('resize', fit); fit();
+
+/* ---- halftone corners ---- */
+(function(){
+  const svg = document.getElementById('dots'), st = 21, out = [];
+  const mix = (a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+  const O=[247,148,30], Y=[254,200,47];
+  function ht(cx,cy,R){
+    for(let r=0,y=0; y<1080+st; r++, y=r*st*.87){
+      for(let x=(r%2?st/2:0); x<1920+st; x+=st){
+        const d=Math.hypot(x-cx,y-cy); if(d>=R) continue;
+        const rad=12*Math.pow(1-d/R,.95); if(rad<1.2) continue;
+        const c=mix(O,Y,Math.sin(Math.PI*Math.min(1,d/R)));
+        out.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad.toFixed(1)}" fill="rgb(${c})"/>`);
+      }
+    }
+  }
+  ht(1935,-5,335); ht(-10,1090,335);
+  svg.innerHTML = out.join('');
+})();
+
+/* ---- full-screen halftone: sticks to the real screen corners ---- */
+function bgDraw(){
+  const s=Math.min(innerWidth/1920,innerHeight/1080),
+    L=-(innerWidth-1920*s)/2/s, T=-(innerHeight-1080*s)/2/s, W=innerWidth/s, H=innerHeight/s,
+    R=335, st=21, o=[], svg=document.getElementById('dots'),
+    mix=(a,b,t)=>a.map((v,i)=>Math.round(v+(b[i]-v)*t)), O=[247,148,30], Y=[254,200,47];
+  svg.style.cssText=`left:${L}px;top:${T}px;width:${W}px;height:${H}px`;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const ht=(cx,cy)=>{
+    for(let r=0,y=0;y<H+st;r++,y=r*st*.87)
+      for(let x=(r%2?st/2:0);x<W+st;x+=st){
+        const d=Math.hypot(x-cx,y-cy); if(d>=R) continue;
+        const rad=12*Math.pow(1-d/R,.95); if(rad<1.2) continue;
+        o.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad.toFixed(1)}" fill="rgb(${mix(O,Y,Math.sin(Math.PI*d/R))})"/>`);
+      }
+  };
+  ht(W+15,-5); ht(-10,H+10);
+  svg.innerHTML=o.join('');
+}
+bgDraw(); addEventListener('resize',bgDraw);
+
+/* ---- login / register ---- */
+const $ = id => document.getElementById(id);
+const U=$('u'), P=$('p'), C=$('c'), card=$('card'), msg=$('msg'), mouth=$('mouth');
+const SMILE="M25 79Q60 112 95 80", BIG="M22 76Q60 120 98 77", SAD="M27 92Q60 68 93 92";
+let reg=false;
+
+const users = () => { try{return JSON.parse(localStorage.getItem('users')||'{}')}catch(e){return {}} };
+const hash = async s => { try{
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}catch(e){return btoa(unescape(encodeURIComponent(s)))} };
+
+function say(t,ok){ msg.textContent=t; msg.className='msg'+(ok?' ok':''); }
+function face(d){ mouth.setAttribute('d',d); }
+function bad(text,...els){
+  say(text); face(SAD);
+  card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+  els.forEach(e=>e.classList.add('err'));
+}
+[U,P,C].forEach(e=>e.addEventListener('input',()=>{
+  e.classList.remove('err'); if(msg.className.indexOf('ok')<0) say(''); face(SMILE);
+}));
+
+/* show / hide password */
+$('eye').onclick=()=>{
+  const show=P.type==='password';
+  P.type=C.type=show?'text':'password';
+  $('slash').style.display=show?'none':'';
+  $('eye').setAttribute('aria-label',show?'Hide password':'Show password');
+};
+
+/* caps lock hint */
+P.addEventListener('keyup',e=>{
+  const on=e.getModifierState&&e.getModifierState('CapsLock');
+  if(on) say('Caps Lock is on.'); else if(msg.textContent==='Caps Lock is on.') say('');
+});
+
+/* dark mode: click the smiley */
+const setDk=d=>{document.documentElement.classList.toggle('dk',d);localStorage.setItem('dk',d?1:0)};
+setDk(localStorage.getItem('dk')==='1');
+document.querySelector('.face').onclick=()=>setDk(!document.documentElement.classList.contains('dk'));
+
+/* resize card: drag the red corner dots */
+const cs=document.querySelector('.card'),dTL=document.querySelector('.dot.tl'),dBR=document.querySelector('.dot.br');
+let cx=1219,cy=170,ck=1;
+const applyC=()=>{cs.style.left=cx+'px';cs.style.top=cy+'px';cs.style.setProperty('--k',ck)};
+try{const z=JSON.parse(localStorage.getItem('cardPos'));if(z){({cx,cy,ck}=z)}}catch(e){}
+applyC();
+let kx=1,ky=1;cx=1219;cy=170;
+const ap=()=>{cs.style.left=cx+'px';cs.style.top=cy+'px';cs.style.setProperty('--kx',kx);cs.style.setProperty('--ky',ky)};
+try{const z=JSON.parse(localStorage.getItem('cardBox'));if(z){({cx,cy,kx,ky}=z)}}catch(e){}
+ap();
+[dTL,dBR].forEach(d=>{
+  const tl=d===dTL;
+  d.addEventListener('pointerdown',e=>{
+    e.preventDefault();d.setPointerCapture(e.pointerId);
+    const H=cs.offsetHeight,Vx=467,Vy=H-57;
+    const fx=tl?cx+497*kx:cx+30*kx, fy=tl?cy+(H-32)*ky:cy+25*ky;
+    const mv=ev=>{
+      const r=stage.getBoundingClientRect(),s=r.width/1920,px=(ev.clientX-r.left)/s,py=(ev.clientY-r.top)/s;
+      kx=Math.min(2.5,Math.max(.4,(tl?fx-px:px-fx)/Vx));
+      ky=Math.min(2.5,Math.max(.4,(tl?fy-py:py-fy)/Vy));
+      cx=tl?fx-497*kx:fx-30*kx; cy=tl?fy-(H-32)*ky:fy-25*ky;
+      ap();
+    };
+    const up=()=>{d.removeEventListener('pointermove',mv);d.removeEventListener('pointerup',up);localStorage.setItem('cardBox',JSON.stringify({cx,cy,kx,ky}))};
+    d.addEventListener('pointermove',mv);d.addEventListener('pointerup',up);
+  });
+  d.ondblclick=()=>{cx=1219;cy=170;kx=ky=1;ap();localStorage.removeItem('cardBox')};
+});
+[].forEach(d=>{
+  d.addEventListener('pointerdown',e=>{
+    e.preventDefault();d.setPointerCapture(e.pointerId);
+    const H=cs.offsetHeight,Vx=467,Vy=H-57,VV=Vx*Vx+Vy*Vy,tl=d===dTL;
+    const fx=tl?cx+497*ck:cx+30*ck, fy=tl?cy+(H-32)*ck:cy+25*ck;
+    const mv=ev=>{
+      const r=stage.getBoundingClientRect(),s=r.width/1920,px=(ev.clientX-r.left)/s,py=(ev.clientY-r.top)/s;
+      const dx=tl?fx-px:px-fx, dy=tl?fy-py:py-fy;
+      ck=Math.min(1.6,Math.max(.5,(dx*Vx+dy*Vy)/VV));
+      cx=tl?fx-497*ck:fx-30*ck; cy=tl?fy-(H-32)*ck:fy-25*ck;
+      applyC();
+    };
+    const up=()=>{d.removeEventListener('pointermove',mv);d.removeEventListener('pointerup',up);localStorage.setItem('cardPos',JSON.stringify({cx,cy,ck}))};
+    d.addEventListener('pointermove',mv);d.addEventListener('pointerup',up);
+  });
+  d.ondblclick=()=>{cx=1219;cy=170;ck=1;applyC();localStorage.removeItem('cardPos')};
+});
+
+/* switch mode */
+function setMode(r){
+  reg=r; card.classList.toggle('reg',r);
+  $('title').textContent=r?'Register':'Login';
+  $('alt').textContent=r?'Back to login':'Create new account';
+  $('go').textContent=r?'Register':'Login';
+  P.autocomplete=r?'new-password':'current-password';
+  C.value=''; P.value=''; [U,P,C].forEach(e=>e.classList.remove('err')); face(SMILE); say('');
+}
+$('alt').onclick=()=>{ setMode(!reg); if(!reg) U.focus(); };
+
+/* submit (Enter key) */
+async function submit(){
+  const u=U.value.trim(), p=P.value, db=users(), key=u.toLowerCase();
+  if(!u||!p||(reg&&!C.value))
+    return bad('Please fill in all fields.',...[!u&&U,!p&&P,reg&&!C.value&&C].filter(Boolean));
+  if(reg){
+    if(u.length<3) return bad('Username must be at least 3 characters.',U);
+    if(p.length<6) return bad('Password must be at least 6 characters.',P);
+    if(p!==C.value) return bad('Passwords do not match.',P,C);
+    if(db[key]) return bad('Username is already taken.',U);
+    db[key]={name:u,h:await hash(p)};
+    localStorage.setItem('users',JSON.stringify(db));
+    face(BIG); say('Account created! Logging you in...',true);
+    setTimeout(()=>{ setMode(false); U.value=u; P.focus(); },1200);
+  }else{
+    const r=db[key];
+    if(!r||r.h!==await hash(p)) return bad('Invalid username or password.',U,P);
+    localStorage.setItem('session',JSON.stringify({user:r.name,at:Date.now()}));
+    face(BIG); say('Welcome back, '+r.name+'!',true);
+    if(REDIRECT) setTimeout(()=>location.href=REDIRECT,900);
+  }
+}
+$('go').onclick=submit;
+card.addEventListener('keydown',e=>{ if(e.key==='Enter'&&e.target.tagName==='INPUT'){ e.preventDefault(); submit(); } });
+</script>
 </body>
 </html>
