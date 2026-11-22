@@ -67,10 +67,16 @@ const server = http.createServer((req, res) => {
           const incoming = JSON.parse(raw); const places = readPlaces();
           if (!incoming.name || !Number.isFinite(Number(incoming.lat)) || !Number.isFinite(Number(incoming.lng))) return json(res, 400, { error: 'Name and valid map coordinates are required.' });
           const place = { ...incoming, id: incoming.id || Math.max(0, ...places.map(p => Number(p.id) || 0)) + 1 };
+          const previousImage = places.find(p => Number(p.id) === Number(place.id))?.image || '';
           if(incoming.imageData){const match=String(incoming.imageData).match(/^data:image\/(png|jpeg|webp);base64,([A-Za-z0-9+/=]+)$/);if(!match)return json(res,400,{error:'Upload a PNG, JPEG, or WebP image.'});const bytes=Buffer.from(match[2],'base64');if(bytes.length>5*1024*1024)return json(res,413,{error:'Image must be 5 MB or smaller.'});const extension=match[1]==='jpeg'?'jpg':match[1];const imageName=`place-${place.id}-${Date.now()}.${extension}`;fs.mkdirSync(path.join(__dirname,'assets'),{recursive:true});fs.writeFileSync(path.join(__dirname,'assets',imageName),bytes);place.image=`/assets/${imageName}`;delete place.imageData;}
           const index = places.findIndex(p => p.id === place.id);
           if (index < 0) places.push(place); else places[index] = place;
-          savePlaces(places); json(res, 200, place);
+          savePlaces(places);
+          const ownedImage = new RegExp('^/assets/place-' + place.id + '-\\d+\\.(?:png|jpg|webp)$', 'i');
+          if (previousImage && previousImage !== place.image && ownedImage.test(previousImage) && !places.some(p => p.image === previousImage)) {
+            try { fs.unlinkSync(path.join(__dirname, 'assets', path.basename(previousImage))); } catch {}
+          }
+          json(res, 200, place);
         } catch { json(res, 400, { error: 'Invalid place data.' }); }
       }); return;
     }
