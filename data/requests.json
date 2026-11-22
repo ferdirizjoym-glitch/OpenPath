@@ -1,0 +1,21 @@
+[
+  {
+    "name": "good yan",
+    "category": "Food & drink",
+    "area": "ssdfgfgggdfg",
+    "description": "ggdfgfddbdbdfb",
+    "submitter": "Tite ni tanga",
+    "lat": 14.832764122662182,
+    "lng": 120.2826660972226,
+    "features": {
+      "Ramp": "Available",
+      "Step-free entrance": "Available",
+      "Accessible restroom": "Available",
+      "Elevator": "Unavailable"
+    },
+    "notes": "",
+    "id": 1795151065613,
+    "status": "pending",
+    "submittedAt": "2026-11-20T05:04:25.613Z"
+  }
+]
