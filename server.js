@@ -22,6 +22,7 @@ const files = {
   '/admin-login.html': ['admin-login.html', 'text/html; charset=utf-8'], '/admin-protected.html': ['admin-protected.html', 'text/html; charset=utf-8'],
   '/suggest': ['suggest.html', 'text/html; charset=utf-8'], '/suggest.html': ['suggest.html', 'text/html; charset=utf-8'],
   '/guide': ['guide.html', 'text/html; charset=utf-8'], '/guide.css': ['guide.css', 'text/css; charset=utf-8'], '/guide.js': ['guide.js', 'text/javascript; charset=utf-8'],
+  '/about': ['about.html', 'text/html; charset=utf-8'], '/about.html': ['about.html', 'text/html; charset=utf-8'], '/about.css': ['about.css', 'text/css; charset=utf-8'], '/about.js': ['about.js', 'text/javascript; charset=utf-8'],
   '/styles.css': ['styles.css', 'text/css; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'],
   '/admin.js': ['admin.js', 'text/javascript; charset=utf-8'], '/suggest.js': ['suggest.js', 'text/javascript; charset=utf-8']
 };

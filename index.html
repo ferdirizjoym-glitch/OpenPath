@@ -6,18 +6,18 @@
   <meta name="theme-color" content="#fff9f2">
   <title>Open Path — Discover Olongapo City Without Limits</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="home.css">
-  <script src="home.js" defer></script>
+  <link rel="stylesheet" href="home.css?v=3">
+  <script src="home.js?v=2" defer></script>
 </head>
 <body class="home-page">
   <a class="skip-link" href="#featured">Skip to featured places</a>
   <header class="home-header">
-    <a class="home-logo" href="/" aria-label="Open Path home"><img class="logo-light" src="/assets/openpath-logo-light.png" alt="Open Path"><img class="logo-dark" src="/assets/openpath-logo-dark.png" alt=""></a>
+    <a class="home-logo" href="/" aria-label="Open Path home"><img class="logo-light" src="/assets/openpath-logo-light.png" alt="Open Path"><img class="logo-dark" src="/assets/openpath-logo-dark.png?v=2" alt=""></a>
     <nav class="home-nav" aria-label="Main navigation">
       <a class="active" aria-current="page" href="/">Home</a>
       <a href="/map">Explore Map</a>
       <a href="/guide">Accessibility Guide</a>
-      <a href="#about">About Us</a>
+      <a href="/about">About Us</a>
       <button class="home-theme" id="theme-toggle" type="button"><span class="theme-orb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 15.3A8.5 8.5 0 0 1 8.7 3.5 8.5 8.5 0 1 0 20.5 15.3Z"/></svg></span><span id="theme-label">Dark Mode</span></button>
     </nav>
   </header>
@@ -31,11 +31,7 @@
     <section class="featured-section" id="featured" aria-labelledby="featured-title">
       <h2 id="featured-title">Featured Places</h2>
       <p class="featured-intro">Add these places to your next stop and discover more about Olongapo City.<br><a href="/map">Explore Map</a> to discover more places and areas.</p>
-      <div class="featured-grid">
-        <article class="place-card"><img src="/assets/rizal-triangle.png" alt="Monument at Rizal Triangle Park"><div class="place-card-content"><h3>Rizal Triangle Park</h3><p class="place-type">Park</p><p class="place-address">R7RP+HPQ, Olongapo City, 2200<br>Zambales</p><ul class="access-list"><li><span class="status available">Available</span><strong>Wheelchair Ramp</strong></li><li><span class="status unverified">Not Verified</span><strong>Handrails</strong></li></ul><a class="details-link" href="/map?place=6">View Accessibility Details</a></div></article>
-        <article class="place-card"><img src="/assets/marikit-park.png" alt="Green public grounds at Marikit Park"><div class="place-card-content"><h3>Marikit Park</h3><p class="place-type">Park</p><p class="place-address">R7PM+X77, Hospital Rd, Olongapo<br>City, Zambales</p><ul class="access-list"><li><span class="status available">Available</span><strong>Wheelchair Ramp</strong></li><li><span class="status unverified">Not Verified</span><strong>Handrails</strong></li></ul><a class="details-link" href="/map?place=7">View Accessibility Details</a></div></article>
-        <article class="place-card"><img src="/assets/sm-city-card.png" alt="SM City Olongapo Central shopping mall"><div class="place-card-content"><h3>SM City Olongapo Central</h3><p class="place-type">Shopping Mall</p><p class="place-address">Rizal Avenue Extension, Olongapo<br>City, 2200 Zambales</p><ul class="access-list"><li><span class="status available">Available</span><strong>Wheelchair Ramp</strong></li><li><span class="status available">Available</span><strong>Handrails</strong></li></ul><a class="details-link" href="/map?place=8">View Accessibility Details</a></div></article>
-      </div>
+      <div class="featured-carousel" aria-label="Featured places moving carousel"><div class="featured-track"><div class="featured-group" id="featured-group"><p class="featured-empty">Destinations selected by admins will appear here.</p></div></div></div>
     </section>
 
     <section class="category-section" id="guide" aria-labelledby="category-title"><h2 id="category-title">Search by Category</h2><div class="category-list">
@@ -49,6 +45,6 @@
 
     <section class="how-section" id="about" aria-labelledby="how-title"><h2 id="how-title">How Open Path Works</h2><div class="steps"><article class="step"><svg viewBox="0 0 48 58" aria-hidden="true"><path d="M24 2C12 2 4 11 4 23c0 15 20 33 20 33s20-18 20-33C44 11 36 2 24 2Zm0 28a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg><strong>01</strong><p>Discover destinations<br>around Olongapo City.</p></article><article class="step"><svg viewBox="0 0 58 58" aria-hidden="true"><path d="M24 4v16h14a13 13 0 1 1-13 13v-5h-7v7a20 20 0 1 0 20-20H24V4h-6v13H9v-8H3v14h15V4z"/></svg><strong>02</strong><p>Review accessibility features<br>and available facilities.</p></article><article class="step"><svg viewBox="0 0 58 58" aria-hidden="true"><circle cx="25" cy="31" r="21"/><circle cx="25" cy="31" r="13"/><circle cx="25" cy="31" r="5"/><path d="m26 30 24-24m-11 0h11v11m-22 2 7 7"/></svg><strong>03</strong><p>Prepare for your visit with<br>useful information.</p></article></div></section>
   </main>
-  <footer class="home-footer"><a href="/" class="footer-logo"><img class="logo-light" src="/assets/openpath-logo-dark.png" alt="Open Path"><img class="logo-dark" src="/assets/openpath-logo-dark.png" alt=""></a><nav aria-label="Footer navigation"><a class="active" href="/">Home</a><a href="/map">Explore Map</a><a href="/guide">Accessibility Guide</a><a href="#about">About Us</a></nav></footer>
+  <footer class="home-footer"><a href="/" class="footer-logo"><img class="logo-light" src="/assets/openpath-logo-dark.png?v=2" alt="Open Path"><img class="logo-dark" src="/assets/openpath-logo-dark.png?v=2" alt=""></a><nav aria-label="Footer navigation"><a class="active" href="/">Home</a><a href="/map">Explore Map</a><a href="/guide">Accessibility Guide</a><a href="/about">About Us</a></nav></footer>
 </body>
 </html>

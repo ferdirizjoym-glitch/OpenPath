@@ -1,92 +1,114 @@
 [
   {
+    "id": 5,
     "name": "Banko",
-    "category": "Public service",
+    "category": null,
     "area": "Rizal avenue,dito uyan",
     "description": "gooods naman",
+    "hours": "",
     "lat": 14.839234,
     "lng": 120.284489,
+    "image": "/assets/place-5-1795325010804.jpg",
+    "imageData": "",
+    "highlighted": true,
     "features": {
-      "Ramp": "Available",
-      "Step-free entrance": "Unavailable",
+      "Elevator": "Unverified",
       "Accessible restroom": "Available",
-      "Elevator": "Unverified"
+      "Handrails": "Unverified",
+      "Parking": "Unverified",
+      "Priority Seating": "Unverified",
+      "Ramp": "Available",
+      "High-Contrast Signage": "Unverified",
+      "Braille/Tactile Indicators": "Unverified",
+      "Step-free entrance": "Unavailable"
     },
     "notes": "okay lang",
     "verified": "2026/11/20",
-    "icon": "⌂",
-    "id": 5
+    "icon": "⌂"
   },
   {
     "id": 6,
     "name": "Rizal Triangle Park",
-    "category": "Leisure",
+    "category": null,
     "area": "R7RP+HPQ, Olongapo City, 2200 Zambales",
     "description": "Open 24 hours",
-    "notes": "Illustrative pin and accessibility details for project demonstration. Verify before visiting.",
+    "hours": "",
     "lat": 14.8378,
     "lng": 120.2842,
+    "image": "",
+    "imageData": "",
+    "highlighted": true,
     "features": {
-      "Ramp": "Available",
-      "Step-free entrance": "Unverified",
-      "Accessible restroom": "Unverified",
       "Elevator": "Not Applicable",
+      "Accessible restroom": "Unverified",
       "Handrails": "Unverified",
       "Parking": "Unverified",
       "Priority Seating": "Unverified",
+      "Ramp": "Available",
       "High-Contrast Signage": "Unverified",
-      "Braille/Tactile Indicators": "Unverified"
+      "Braille/Tactile Indicators": "Unverified",
+      "Step-free entrance": "Unverified"
     },
+    "notes": "Illustrative pin and accessibility details for project demonstration. Verify before visiting.",
     "verified": "Illustrative only",
-    "icon": "♧"
+    "icon": "⌂"
   },
   {
     "id": 7,
     "name": "Marikit Park",
-    "category": "Leisure",
+    "category": null,
     "area": "R7PM+X77, Hospital Rd, Olongapo City, Zambales",
     "description": "Hours not verified",
-    "notes": "Illustrative pin and accessibility details for project demonstration. Verify before visiting.",
+    "hours": "",
     "lat": 14.8349,
     "lng": 120.2881,
+    "image": "",
+    "imageData": "",
+    "highlighted": true,
     "features": {
-      "Ramp": "Available",
-      "Step-free entrance": "Unverified",
-      "Accessible restroom": "Unverified",
       "Elevator": "Not Applicable",
+      "Accessible restroom": "Unverified",
       "Handrails": "Unverified",
       "Parking": "Unverified",
       "Priority Seating": "Unverified",
+      "Ramp": "Available",
       "High-Contrast Signage": "Unverified",
-      "Braille/Tactile Indicators": "Unverified"
+      "Braille/Tactile Indicators": "Unverified",
+      "Step-free entrance": "Unverified"
     },
+    "notes": "Illustrative pin and accessibility details for project demonstration. Verify before visiting.",
     "verified": "Illustrative only",
-    "icon": "♧"
+    "icon": "⌂"
   },
   {
     "id": 8,
     "name": "SM City Olongapo Central",
-    "category": "Shopping",
+    "category": null,
     "area": "Rizal Avenue Extension, Olongapo City, 2200 Zambales",
     "description": "Hours not verified",
-    "notes": "Illustrative pin and accessibility details for project demonstration. Verify before visiting.",
+    "hours": "",
     "lat": 14.8327,
     "lng": 120.2911,
+    "image": "",
+    "imageData": "",
+    "highlighted": true,
     "features": {
-      "Ramp": "Available",
-      "Step-free entrance": "Available",
-      "Accessible restroom": "Unverified",
       "Elevator": "Unverified",
+      "Accessible restroom": "Unverified",
       "Handrails": "Available",
       "Parking": "Unverified",
       "Priority Seating": "Unverified",
+      "Ramp": "Available",
       "High-Contrast Signage": "Unverified",
-      "Braille/Tactile Indicators": "Unverified"
+      "Braille/Tactile Indicators": "Unverified",
+      "Step-free entrance": "Available"
     },
+    "notes": "Illustrative pin and accessibility details for project demonstration. Verify before visiting.",
     "verified": "Illustrative only",
-    "icon": "▧"
+    "icon": "⌂"
   },
   {
+    "id": 9,
     "name": "Esmiringhoyan",
     "category": "Hotels",
     "area": "Dito sa tabi malapit dito",
@@ -95,6 +117,8 @@
     "lat": 14.832747,
     "lng": 120.282904,
     "image": "/assets/place-9-1795322291546.jpg",
+    "imageData": "",
+    "highlighted": true,
     "features": {
       "Elevator": "Available",
       "Accessible restroom": "Available",
@@ -108,7 +132,6 @@
     },
     "notes": "Goods lang w",
     "verified": "2026/11/22",
-    "icon": "⌂",
-    "id": 9
+    "icon": "⌂"
   }
 ]

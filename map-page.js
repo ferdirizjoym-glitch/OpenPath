@@ -73,7 +73,10 @@ function render() {
   };
   const shown = places.filter(place => (!query || `${place.name} ${place.area} ${place.category}`.toLowerCase().includes(query)) && (category === 'all' || terms[category]?.test(`${place.name} ${place.category} ${place.area}`)));
   markers.clearLayers();
-  shown.forEach(place => L.marker([Number(place.lat), Number(place.lng)]).addTo(markers).on('click', () => { selected = place; showAccess(place); renderCards(shown); }).bindPopup(safe(place.name)));
+  shown.forEach(place => {
+    const icon = place.highlighted ? L.divIcon({ className: 'highlight-map-marker', html: '<span><b aria-hidden="true">★</b></span>', iconSize: [36, 36], iconAnchor: [18, 36] }) : undefined;
+    L.marker([Number(place.lat), Number(place.lng)], icon ? { icon } : {}).addTo(markers).on('click', () => { selected = place; showAccess(place); renderCards(shown); }).bindPopup(`${place.highlighted ? '★ Featured · ' : ''}${safe(place.name)}`);
+  });
   renderCards(shown);
   if (selected && !shown.some(place => place.id === selected.id)) { selected = null; showAccess(null); }
 }
@@ -81,12 +84,15 @@ function render() {
 function renderCards(items) {
   const holder = $('#location-cards');
   if (!holder) return;
-  holder.innerHTML = items.length ? items.map(place => {
+  const featured = items.filter(place => place.highlighted);
+  const previousScroll = holder.scrollLeft;
+  holder.innerHTML = featured.length ? featured.map(place => {
     const knownPhoto = /rizal triangle|rizal park/i.test(place.name) ? '/assets/rizal-detail.png' : /marikit/i.test(place.name) ? '/assets/marikit-park.png' : /sm city/i.test(place.name) ? '/assets/sm-city-card.png' : '';
     const photo = place.image || knownPhoto;
     const available = Object.values(place.features || {}).filter(value => value === 'Available').length;
-    return `<button type="button" class="location-card ${selected?.id === place.id ? 'selected' : ''}" data-place-id="${safe(place.id)}"><span class="location-card-photo">${photo ? `<img src="${safe(photo)}" alt="">` : '<span class="location-photo-placeholder" aria-hidden="true">⌖</span>'}</span><span class="location-card-body"><strong>${safe(place.name)}</strong><span class="location-card-meta">${safe(place.category)} · ${safe(place.area)}</span><span class="location-card-hours">${safe(place.hours || 'Hours not verified')}</span><span class="location-card-desc">${safe(place.description || place.notes || '')}</span><span class="location-card-count">${available} features reported available</span></span></button>`;
-  }).join('') : '<p class="cards-empty">No destinations match the current search or category.</p>';
+    return `<button type="button" class="location-card ${selected?.id === place.id ? 'selected' : ''}" data-place-id="${safe(place.id)}"><span class="location-card-photo">${photo ? `<img src="${safe(photo)}" alt="">` : '<span class="location-photo-placeholder" aria-hidden="true">⌖</span>'}</span><span class="location-card-body"><strong>${safe(place.name)}</strong>${place.highlighted ? '<span class="location-card-highlight">★ Featured destination</span>' : ''}<span class="location-card-meta">${safe(place.category)} · ${safe(place.area)}</span><span class="location-card-hours">${safe(place.hours || 'Hours not verified')}</span><span class="location-card-desc">${safe(place.description || place.notes || '')}</span><span class="location-card-count">${available} features reported available</span></span></button>`;
+  }).join('') : '<p class="cards-empty">No featured destinations match the current search and category.</p>';
+  holder.scrollLeft = previousScroll;
   holder.querySelectorAll('[data-place-id]').forEach(card => card.addEventListener('click', () => {
     const place = items.find(item => String(item.id) === card.dataset.placeId);
     if (!place) return;
@@ -95,6 +101,17 @@ function renderCards(items) {
     map.setView([Number(place.lat), Number(place.lng)], 17);
     renderCards(items);
   }));
+  updateCardControls();
+}
+
+function updateCardControls() {
+  const rail = $('#location-cards');
+  const previous = $('#cards-left');
+  const next = $('#cards-right');
+  if (!rail || !previous || !next) return;
+  const hasOverflow = rail.scrollWidth > rail.clientWidth + 2;
+  previous.disabled = !hasOverflow || rail.scrollLeft <= 2;
+  next.disabled = !hasOverflow || rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2;
 }
 
 $('#search-form').addEventListener('submit', event => { event.preventDefault(); render(); });
@@ -102,6 +119,10 @@ $('#search').addEventListener('input', render);
 $('#category').addEventListener('change', render);
 $('#zoom-in').onclick = () => map.zoomIn();
 $('#zoom-out').onclick = () => map.zoomOut();
+$('#cards-left').addEventListener('click', () => $('#location-cards').scrollBy({ left: -Math.max(280, $('#location-cards').clientWidth * 0.8), behavior: 'smooth' }));
+$('#cards-right').addEventListener('click', () => $('#location-cards').scrollBy({ left: Math.max(280, $('#location-cards').clientWidth * 0.8), behavior: 'smooth' }));
+$('#location-cards').addEventListener('scroll', updateCardControls, { passive: true });
+new ResizeObserver(updateCardControls).observe($('#location-cards'));
 const queryCategory = new URLSearchParams(location.search).get('category');
 if (queryCategory) $('#category').value = ({ Health: 'healthcare', Shopping: 'shopping', Food: 'restaurants', Public: 'government', Hotels: 'hotels', Education: 'schools' })[queryCategory] || queryCategory.toLowerCase();
 
