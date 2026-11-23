@@ -1,0 +1,33 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "{*.html,data/places.json}"
+    }
+  },
+  "redirects": [
+    { "source": "/admin.html", "destination": "/admin", "permanent": false },
+    { "source": "/admin-protected.html", "destination": "/admin/protected", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/admin", "destination": "/api/admin-page?path=admin" },
+    { "source": "/admin/login", "destination": "/api/admin-page?path=admin/login" },
+    { "source": "/admin/dashboard", "destination": "/api/admin-page?path=admin/dashboard" },
+    { "source": "/admin/protected", "destination": "/api/admin-page?path=admin/protected" },
+    { "source": "/map", "destination": "/map.html" },
+    { "source": "/guide", "destination": "/guide.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/suggest", "destination": "/suggest.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}

@@ -50,7 +50,7 @@ function showAccess(place) {
     [/marikit/i, '/assets/marikit-park.png'],
     [/sm city/i, '/assets/sm-city-card.png']
   ];
-  const photo = place.image ? [null, place.image] : photos.find(([pattern]) => pattern.test(place.name || ''));
+  const photo = place.image ? [null, place.image] : place.imageRemoved ? null : photos.find(([pattern]) => pattern.test(place.name || ''));
   $('.destination-placeholder span').textContent = photo ? '' : 'No photo is available for this destination yet.';
   $('#destination-image').hidden = !photo;
   if (photo) {
@@ -87,7 +87,7 @@ function renderCards(items) {
   const featured = items.filter(place => place.highlighted);
   const previousScroll = holder.scrollLeft;
   holder.innerHTML = featured.length ? featured.map(place => {
-    const knownPhoto = /rizal triangle|rizal park/i.test(place.name) ? '/assets/rizal-detail.png' : /marikit/i.test(place.name) ? '/assets/marikit-park.png' : /sm city/i.test(place.name) ? '/assets/sm-city-card.png' : '';
+    const knownPhoto = place.imageRemoved ? '' : /rizal triangle|rizal park/i.test(place.name) ? '/assets/rizal-detail.png' : /marikit/i.test(place.name) ? '/assets/marikit-park.png' : /sm city/i.test(place.name) ? '/assets/sm-city-card.png' : '';
     const photo = place.image || knownPhoto;
     const available = Object.values(place.features || {}).filter(value => value === 'Available').length;
     return `<button type="button" class="location-card ${selected?.id === place.id ? 'selected' : ''}" data-place-id="${safe(place.id)}"><span class="location-card-photo">${photo ? `<img src="${safe(photo)}" alt="">` : '<span class="location-photo-placeholder" aria-hidden="true">⌖</span>'}</span><span class="location-card-body"><strong>${safe(place.name)}</strong>${place.highlighted ? '<span class="location-card-highlight">★ Featured destination</span>' : ''}<span class="location-card-meta">${safe(place.category)} · ${safe(place.area)}</span><span class="location-card-hours">${safe(place.hours || 'Hours not verified')}</span><span class="location-card-desc">${safe(place.description || place.notes || '')}</span><span class="location-card-count">${available} features reported available</span></span></button>`;
